@@ -1,0 +1,6 @@
+export * from './Header'
+export * from './Card'
+export * from './PatientForm'
+export * from './CustomTitle'
+export * from './PatientCard'
+export * from './PatientList'
