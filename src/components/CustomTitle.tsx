@@ -22,8 +22,8 @@ export const CustomTitle = ({
                 <p className='text-xl font-bold'>{title}</p>
                 <p className='text-sm text-muted-foreground'>{description}</p>
 
-                <div className='flex items-center gap-2 mt-2'>
-                    {badge && <Badge>{badge}</Badge>}
+                <div className='flex items-center gap-2'>
+                    {badge && <Badge>ID: {badge}</Badge>}
                 </div>
             </div>
         </div>

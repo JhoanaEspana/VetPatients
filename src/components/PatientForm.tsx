@@ -1,22 +1,45 @@
-import { PawPrint } from 'lucide-react'
-import { Card } from './Card'
-import { CustomTitle } from './CustomTitle'
+import { PawPrint, Save } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { Error } from './Error'
 import type { DraftPatient } from '../types'
 import { usePatientStore } from '../store/store'
+import { Button, Card, CustomTitle, Error } from './index'
+import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 export const PatientForm = () => {
-    const { addPatient } = usePatientStore()
+    const { addPatient, activeId, patients, updatePatient } = usePatientStore()
 
     const {
         register,
         handleSubmit,
+        reset,
+        setValue,
         formState: { errors },
     } = useForm<DraftPatient>()
 
+    useEffect(() => {
+        if (activeId) {
+            const activePatient = patients.filter(
+                (patient) => patient.id === activeId
+            )[0]
+            console.log(activePatient)
+            setValue('name', activePatient.name)
+            setValue('caretaker', activePatient.caretaker)
+            setValue('email', activePatient.email)
+            setValue('date', activePatient.date)
+            setValue('symptoms', activePatient.symptoms)
+        }
+    }, [activeId, patients, setValue])
+
     const registerPatient = (data: DraftPatient) => {
-        addPatient(data)
+        if (activeId) {
+            updatePatient(data)
+            toast.success('Paciente actualizado correctamente')
+        } else {
+            addPatient(data)
+            toast.success('Paciente registrado correctamente')
+        }
+        reset()
     }
 
     return (
@@ -136,10 +159,11 @@ export const PatientForm = () => {
                     )}
                 </div>
 
-                <input
+                <Button
                     type='submit'
-                    className='bg-primary text-primary-foreground w-full p-3 font-semibold hover:bg-primary/90 cursor-pointer transition-colors'
-                    value='Guardar Paciente'
+                    icon={<Save className='h-5 w-5 mr-2' />}
+                    label='Guardar Paciente'
+                    variant='primary'
                 />
             </form>
         </Card>

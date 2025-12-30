@@ -1,24 +1,28 @@
+import { ToastContainer } from 'react-toastify'
 import './App.css'
-import { Header, PatientForm } from './components'
-import { PatientList } from './components/PatientList'
+import { Header, PatientForm, PatientList } from './components'
 
 function App() {
     return (
-        <div className='min-h-screen bg-background'>
-            <Header />
+        <>
+            <div className='min-h-screen bg-background'>
+                <Header />
 
-            <main className='container mx-auto px-4 pb-12'>
-                <div className='grid lg:grid-cols-2 gap-8'>
-                    <div className='lg:sticky lg:top-8 lg:self-start'>
-                        <PatientForm />
-                    </div>
+                <main className='container mx-auto px-4 pb-12'>
+                    <div className='grid lg:grid-cols-2 gap-8'>
+                        <div className='lg:sticky lg:top-8 lg:self-start'>
+                            <PatientForm />
+                        </div>
 
-                    <div className='min-h-[500px]'>
-                        <PatientList />
+                        <div className='min-h-[500px] md:h-screen overflow-y-scroll custom-scrollbar'>
+                            <PatientList />
+                        </div>
                     </div>
-                </div>
-            </main>
-        </div>
+                </main>
+            </div>
+
+            <ToastContainer />
+        </>
     )
 }
 
